@@ -1,0 +1,21 @@
+
+C
+java:S1481"&Remove this unused "l" local variable.(û­ÜŠ8‹‚Æ­¹.
+<
+java:S1659"Declare "l" on a separate line.(û­ÜŠ8‹‚Æ­¹.
+R
+java:S1854"5Remove this useless assignment to local variable "l".(û­ÜŠ8‹‚Æ­¹.
+W
+java:S1161":Add the "@Override" annotation above this method signature(¶øÂÁ8‹‚Æ­¹.
+=
+java:S1659" Declare "dh" on a separate line.(ÅÌ·ë8‹‚Æ­¹.
+\
+java:S1161C":Add the "@Override" annotation above this method signature(¸©°úÿÿÿÿ8‹‚Æ­¹.
+\
+java:S1161?":Add the "@Override" annotation above this method signature(Ú„ÎÕþÿÿÿÿ8‹‚Æ­¹.
+W
+java:S1161*":Add the "@Override" annotation above this method signature(æìÑº8‹‚Æ­¹.
+<
+java:S1659"Declare "h" on a separate line.(û­ÜŠ8‹‚Æ­¹.
+B
+java:S1659" Declare "sh" on a separate line.(‚çž üÿÿÿÿ8‹‚Æ­¹.
