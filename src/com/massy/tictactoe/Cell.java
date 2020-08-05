@@ -13,7 +13,7 @@ public class Cell extends Component {
     }
 
     public void paint(Graphics g) {
-        int w = getSize().width, h = getSize().height, l = Math.min(w, h);
+        int w = getSize().width, h = getSize().height;
         Color bg = Color.white;
         Color fg = (state == 1)?Color.red:Color.blue;
         if (highl) bg = new Color((bg.getRed()+fg.getRed())/2, (bg.getGreen()+fg.getGreen())/2, (bg.getBlue()+fg.getBlue())/2);

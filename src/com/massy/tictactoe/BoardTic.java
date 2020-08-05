@@ -1,7 +1,5 @@
 package com.massy.tictactoe;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.applet.Applet;
 import java.awt.event.MouseListener;
 
@@ -9,11 +7,11 @@ public class BoardTic {
 
     private Cell[][] board;
     private int dimension;
-    MouseListener mouseListener;
     private BoardLayout boardLayout;
 
     public BoardTic(int dimension){
         this.dimension = dimension;
+        board = new Cell[dimension][dimension];
     }
 
     public void initBoard(Applet parent){
@@ -49,14 +47,23 @@ public class BoardTic {
             for(int j=0;j<dimension;j++){
                 if(j==0){
                     compareState = board[i][j].getState();
-                } else {
-                    if(compareState != board[i][j].getState())
+                    if(compareState==0) {
                         bingoLoop = false;
+                        break;
+                    }
+                } else {
+                    if(compareState != board[i][j].getState()) {
+                        bingoLoop = false;
+                        break;
+                    }
                 }
             }
             
             if(bingoLoop){
                 //TODO highlight current row
+                for(int j=0;j<dimension;j++){
+                    board[i][j].highlight();
+                }
                 return true;
             }
         }
@@ -67,14 +74,23 @@ public class BoardTic {
             for(int j=0;j<dimension;j++){
                 if(j==0){
                     compareState = board[j][i].getState();
-                } else {
-                    if(compareState != board[j][i].getState())
+                    if(compareState==0) {
                         bingoLoop = false;
+                        break;
+                    }
+                } else {
+                    if(compareState != board[j][i].getState()) {
+                        bingoLoop = false;
+                        break;
+                    }
                 }
             }
 
             if(bingoLoop){
                 //TODO highlight current column
+                for(int j=0;j<dimension;j++){
+                    board[j][i].highlight();
+                }
                 return true;
             }
         }
@@ -84,31 +100,56 @@ public class BoardTic {
         for(int i=0;i<dimension;i++){
             if(i==0){
                 compareState=board[i][i].getState();
+                if(compareState==0) {
+                    bingo = false;
+                    break;
+                }
             }
             else {
-                if(compareState != board[i][i].getState())
+                if(compareState != board[i][i].getState()) {
                     bingo = false;
+                    break;
+                }
             }
         }
 
-        if(bingo)
+        if(bingo) {
             //TODO highlight diagonal
+            for (int i=0;i<dimension;i++){
+                board[i][i].highlight();
+            }
             return bingo;
+        }
+
+        bingo = true;
 
         // checking diagonal
         for(int i=0;i<dimension;i++){
             if(i==0){
                 compareState=board[dimension-1][i].getState();
+                if(compareState==0) {
+                    bingo = false;
+                    break;
+                }
             }
             else {
-                if(compareState != board[dimension-i-1][i].getState())
+                if(compareState != board[dimension-i-1][i].getState()) {
                     bingo = false;
+                    break;
+                }
             }
         }
 
         if(bingo){
             //TODO highlight current diagonal
+            for (int i=0;i<dimension;i++){
+                board[dimension-i-1][i].highlight();
+            }
         }
         return bingo;
+    }
+
+    public int getTotalBoard() {
+        return dimension*dimension;
     }
 }
