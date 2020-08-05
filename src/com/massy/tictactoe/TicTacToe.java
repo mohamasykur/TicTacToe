@@ -1,5 +1,7 @@
 package com.massy.tictactoe;
 
+import com.massy.tictactoe.menu.MenuItemProp;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
@@ -7,15 +9,21 @@ import java.applet.Applet;
 public class TicTacToe extends Applet implements MouseListener,ActionListener {
 
     private Cell[][] board;
+    private BoardTic boardTic;
     private int turn, numturn;
     private MenuItem resetMenu;
     private MenuItem dim3x3,dim4x4,dim5x5;
+    private int dimension = 3;
+
 
     public void init() {
         board = new Cell[3][3];
         removeAll();
 
-        setLayout(new BoardLayout(3, 3, 1f/34, 1f/34, 1, 1));
+        boardTic = new BoardTic(dimension);
+        boardTic.initBoard(this);
+
+        setLayout(boardTic.getBoardLayout());
         setBackground(new Color(102, 153, 102));
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -148,12 +156,8 @@ public class TicTacToe extends Applet implements MouseListener,ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource().equals(resetMenu)){
-            System.out.println("resetMenu clicked");
-            destroy();
-            init();
-        } else if(e.getSource().equals(dim3x3)){
-            System.out.println("dimension 3x3 clicked");
+        if(e.getSource() instanceof MenuItemProp){
+            ((MenuItemProp)e.getSource()).perform(this);
         }
     }
 }
