@@ -4,13 +4,17 @@ import java.awt.*;
 import java.awt.event.*;
 import java.applet.Applet;
 
-public class TicTacToe extends Applet implements MouseListener {
+public class TicTacToe extends Applet implements MouseListener,ActionListener {
 
     private Cell[][] board;
     private int turn, numturn;
+    private MenuItem resetMenu;
+    private MenuItem dim3x3,dim4x4,dim5x5;
 
     public void init() {
         board = new Cell[3][3];
+        removeAll();
+
         setLayout(new BoardLayout(3, 3, 1f/34, 1f/34, 1, 1));
         setBackground(new Color(102, 153, 102));
         for (int i = 0; i < 3; i++) {
@@ -22,6 +26,38 @@ public class TicTacToe extends Applet implements MouseListener {
         }
         addMouseListener(this);
         turn = -1;
+        buildMenu();
+    }
+
+    private void buildMenu(){
+        Object f = getParent ();
+        while (! (f instanceof Frame))
+            f = ((Component) f).getParent ();
+        Frame frame = (Frame) f;
+
+        MenuBar mb = new MenuBar();
+        Menu fm;
+        MenuItem ol;
+
+        mb.add(fm = new Menu("dimension"));
+        dim3x3 = new MenuItem("3 x 3");
+        dim4x4 = new MenuItem("4 x 4");
+        dim5x5 = new MenuItem("5 x 5");
+
+        fm.add(dim3x3);
+        fm.add(dim4x4);
+        fm.add(dim5x5);
+
+        dim3x3.addActionListener(this::actionPerformed);
+        dim4x4.addActionListener(this::actionPerformed);
+        dim5x5.addActionListener(this::actionPerformed);
+
+        mb.add(fm = new Menu("setting"));
+        resetMenu = new MenuItem("reset");
+        fm.add(resetMenu);
+        resetMenu.addActionListener(this::actionPerformed);
+
+        frame.setMenuBar(mb);
     }
 
     public boolean play(int c) {
@@ -80,6 +116,7 @@ public class TicTacToe extends Applet implements MouseListener {
                 goon = false;
             }
         }
+
         repaint();
         return goon;
     }
@@ -109,4 +146,14 @@ public class TicTacToe extends Applet implements MouseListener {
     public void mouseEntered(MouseEvent e) { }
     public void mouseExited(MouseEvent e) { }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource().equals(resetMenu)){
+            System.out.println("resetMenu clicked");
+            destroy();
+            init();
+        } else if(e.getSource().equals(dim3x3)){
+            System.out.println("dimension 3x3 clicked");
+        }
+    }
 }
